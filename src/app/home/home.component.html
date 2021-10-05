@@ -1,0 +1,259 @@
+<div class="container-fluid">
+    
+    <div class="row bg-dark d-flex align-items-center">
+        <div class="col-md-6">
+
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-6 text-white">
+                    <h1 class="fs-54">Seja bem vindo(a)!</h1>
+                    <h5 class="fs-18">analise as aeronaves disponíveis ou cadastre uma nova</h5>
+                </div>
+            </div>
+
+            <div class="row d-flex justify-content-center mt-3 mb-5">
+                <div class="col-md-6"> 
+                    <button class="btn btn-light me-1 mt-1" data-bs-toggle="modal" data-bs-target="#exampleModal">Cadastrar Aeronave</button>
+                    <button class="btn btn-light me-1 mt-1" data-bs-toggle="modal" data-bs-target="#editarAeronave">Editar Aeronave</button>
+                    <button class="btn btn-light me-1 mt-1" data-bs-toggle="modal" data-bs-target="#deletarAeronave">Deletar Aeronave</button>
+                    <a class="btn btn-outline-light mt-1" href="#consultas">Ver Aeronaves</a>
+                    
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-6 d-flex justify-content-center">
+            <img src="https://i.imgur.com/uC0o2fN.png" alt="" width="500px" height="500px">
+        </div>
+
+    </div>
+
+</div>
+
+
+
+ <!-- Navs e Tabs -->
+<div class="container-fluid mb-5 mt-5" id="consultas">
+  <h2 class=" text-dark d-flex justify-content-center ">Consultar Aeronaves</h2>
+  <ul class="nav nav-pills mb-3 d-flex justify-content-center " id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active text-dark" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Todas</button>
+    </li>
+    <!--<li class="nav-item" role="presentation">
+      <button class="nav-link text-dark" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">ID</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link text-dark" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Nome</button>
+    </li>-->
+  </ul>
+
+  <div class="tab-content" id="pills-tabContent">
+
+    <!--GET ALL-->
+    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+
+    <div class="row">
+      <div class="col-md-3 mt-4" *ngFor='let aeronave of getAll'>
+        <div class="card text-justify">
+          <img src="{{aeronave.foto}}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title m-0">{{aeronave.nome}}</h5>
+            <small class="text-muted"
+              >ID: {{aeronave.id}}</small
+            >
+            <p class="card-text">{{ aeronave.descricao }}</p>
+            <hr>
+            <p class="card-text">Ano: {{ aeronave.ano }}</p>
+            <p class="card-text">Vendido: {{ aeronave.vendido }}</p>
+            <p class="card-text">Marca: {{ aeronave.marca }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!--GET BY ID -->
+    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+
+      <form class="was-validated">
+
+        <div class="form-group mb-3">
+          <label for="id" class="form-label">ID</label>
+          <input [(ngModel)]='aeronave.id' type="number" class="form-control is-invalid" name="id" id="id" placeholder="Digite somente o id da aeronave" required>
+          <button type="submit" class="btn btn-success" (click)="getById(aeronave.id)">Consultar</button>
+
+        </div>
+      </form>
+    </div>
+
+
+    <!--GET BY NOME-->
+    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
+
+
+
+
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- Modal Cadastrar-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cadastrar Aeronave</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+
+        <form class="was-validated">
+
+          <div class="form-group mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input [(ngModel)]='aeronave.nome' class="form-control is-invalid" type="text" name="nome" id="nome" placeholder="Seu nome" required>
+        </div>
+
+          <div class="form-group mb-3">
+            <label for="marca" class="form-label">Marca</label>
+            <input [(ngModel)]='aeronave.marca' type="text" class="form-control is-invalid" name="marca" id="marca" placeholder="Digite a Marca" required>
+          </div>
+          
+          <div class="form-group mb-3">
+            <label for="descricao" class="form-label">Descrição</label>
+            <input [(ngModel)]='aeronave.descricao' type="text" class="form-control is-invalid" name="descricao" id="descricao" placeholder="Digite a descrição da aeronave" required>
+          </div>
+          
+          <div class="form-group mb-3">
+            <label for="ano" class="form-label">Ano</label>
+            <input [(ngModel)]='aeronave.ano' type="number" class="form-control is-invalid" name="ano" id="ano" placeholder="Digite somente o ano da aeronave" required>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="foto" class="form-label">Foto</label>
+            <input [(ngModel)]='aeronave.foto' type="text" class="form-control is-invalid" name="foto" id="foto" placeholder="Digite o link da foto" required>
+          </div>
+          
+          
+          <div class="form-group mb-3">
+            <label for="vendido" class="form-label">Vendido</label>
+            <input [(ngModel)]='aeronave.vendido' type="text" class="form-control is-invalid" name="vendido" id="vendido" placeholder="Digite o true para sim e false para não" required>
+          </div>
+
+          
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-success" (click)='cadastrar()' >Salvar</button>
+          </div>
+        </form>
+
+
+    </div>
+  </div>
+</div>
+</div>
+
+
+<!-- Modal Editar-->
+<div class="modal fade" id="editarAeronave" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Editar Aeronave</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form class="was-validated">
+
+          <div class="form-group mb-3">
+            <label for="id" class="form-label">ID</label>
+            <input [(ngModel)]='aeronave.id' type="number" class="form-control is-invalid" name="id" id="id" placeholder="Digite somente o id da aeronave" required>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input [(ngModel)]='aeronave.nome' class="form-control is-invalid" type="text" name="nome" id="nome" placeholder="Seu nome" required>
+        </div>
+
+          <div class="form-group mb-3">
+            <label for="marca" class="form-label">Marca</label>
+            <input [(ngModel)]='aeronave.marca' type="text" class="form-control is-invalid" name="marca" id="marca" placeholder="Digite a Marca" required>
+          </div>
+          
+          <div class="form-group mb-3">
+            <label for="descricao" class="form-label">Descrição</label>
+            <input [(ngModel)]='aeronave.descricao' type="text" class="form-control is-invalid" name="descricao" id="descricao" placeholder="Digite a descrição da aeronave" required>
+          </div>
+          
+          <div class="form-group mb-3">
+            <label for="ano" class="form-label">Ano</label>
+            <input [(ngModel)]='aeronave.ano' type="number" class="form-control is-invalid" name="ano" id="ano" placeholder="Digite somente o ano da aeronave" required>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="foto" class="form-label">Foto</label>
+            <input [(ngModel)]='aeronave.foto' type="text" class="form-control is-invalid" name="foto" id="foto" placeholder="Digite o link da foto" required>
+          </div>
+          
+          
+          <div class="form-group mb-3">
+            <label for="vendido" class="form-label">Vendido -> Insira true para sim e false para não</label>
+            <input [(ngModel)]='aeronave.vendido' type="text" class="form-control is-invalid" name="vendido" id="vendido" placeholder="Digite true para sim e false para não" required>
+          </div>
+
+          
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-success" (click)='editar()' >Salvar alterações</button>
+          </div>
+        </form>
+
+
+
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Modal Deletar-->
+<div class="modal fade" id="deletarAeronave" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Deletar Aeronave</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form class="was-validated">
+
+          <div class="form-group mb-3">
+            <label for="id" class="form-label">ID</label>
+            <input [(ngModel)]='aeronave.id' type="number" class="form-control is-invalid" name="id" id="id" placeholder="Digite somente o id da aeronave" required>
+          </div>
+          
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-success" (click)="excluir(aeronave.id)" >Deletar</button>
+          </div>
+
+        </form>
+
+
+
+    </div>
+  </div>
+</div>
+</div>
+
+
